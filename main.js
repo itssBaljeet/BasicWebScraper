@@ -1,4 +1,4 @@
-const { app, BrowserWindow, BrowserView } = require('electron/main')
+const { app, BrowserWindow, BrowserView, ipcMain } = require('electron/main')
 const path = require('path');
 
 // function for creating a window
@@ -7,6 +7,9 @@ const createWindow = () => {
     width: 1400,
     height: 600,
     show: false,
+    webPreferences: {
+        preload: path.join(__dirname, 'app/js/preload.js')
+    }
   })
   return win; // Returns browser instance
 }
@@ -38,6 +41,11 @@ app.whenReady().then(() => {
         childWindow.webContents.openDevTools()
         childWindow.show()
     }
+  })
+  
+  ipcMain.on('sendURL', (event, url) => {
+    view.webContents.loadURL(url);
+    mirrorView.webContents.loadURL(url);
   })
 })
 

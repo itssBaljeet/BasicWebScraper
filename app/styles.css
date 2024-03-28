@@ -1,10 +1,11 @@
 #url-list {
     border: 2px solid black;
     background-color: white;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     min-height: 100px;
     min-width: 200px;
     max-width: 300px;
+    margin-left: 3px;
 }
 
 
@@ -18,32 +19,54 @@ li.selected {
 }
 
 #url-form {
-    border: 2px dotted black;
+    border: thick double forestgreen;
     width: 340px;
     height: 50px;
+    margin-left: 0px;
 }
 
 
 #url-input {
     width: 332px;
     height: 25px;
+
 }
 
+#header1 {
+    border: 2px dashed black;
+    background-color: forestgreen;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    width: 340px;
+    margin-left: 3px;
+}
+
+#gitlink {
+    display: inline-block;
+    border: 2px solid black;
+    width: 340px;
+    text-align: center;
+    font-variant: small-caps;
+    margin-left: 3px;
+}
 
 #body {
+    border: 3mm ridge rgba(41, 233, 23, 0.548);
     background-color: dimgray;
+    width: 350px;
 }
 
 
 #clear-button {
     border: none;
-    width: 340px;
+    width: 341px;
     color: black;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 14px;
     margin: 4px 2px;
+    margin-left: 4px;
 }
 #clear-button:hover {
     background-color: red;
@@ -53,13 +76,14 @@ li.selected {
 
 #clear-selected-button {
     border: none;
-    width: 340px;
+    width: 341px;
     color: black;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 14px;
     margin: 4px 2px;
+    margin-left: 4px;
 }
 #clear-selected-button:hover {
     background-color: red;
@@ -82,6 +106,10 @@ li.selected {
     color: white;
 }
 
+#operation {
+    margin-left: 3px;
+}
+
 #go-button {
     border: none;
     width: 231px;
@@ -92,6 +120,7 @@ li.selected {
     font-size: 14px;
     cursor: pointer;
     margin-top: 5px;
+    margin-left: 0px;
 }
 #go-button:hover {
     background-color: rgb(135, 224, 0);

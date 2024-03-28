@@ -106,3 +106,18 @@ document.getElementById('clear').addEventListener('click', function(event) {
     document.getElementById('url-list').innerHTML = '';
     urls = [];
 }) 
+
+// Go! button listener
+document.getElementById('go-selector').addEventListener('click', function(event) {
+    event.preventDefault();
+    
+    let selectedOption = document.getElementById('operation').value;
+
+    if (selectedOption === 'load') {
+        window.myAPI.send('sendURL', selectedURL)
+    } else if (selectedOption === 'scrape') {
+        
+    } else if (selectedOption === 'save') {
+        
+    }
+})
