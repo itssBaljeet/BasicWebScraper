@@ -1,0 +1,17 @@
+{
+  "name": "ammoseekscraper",
+  "version": "1.0.0",
+  "description": "Ammo Seek price tracker via Web-Scraping",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "keywords": [
+    "Web-Scraper"
+  ],
+  "author": "Noah Harris",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^29.1.5"
+  }
+}

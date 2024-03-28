@@ -1,0 +1,99 @@
+#url-list {
+    border: 2px solid black;
+    background-color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    min-height: 100px;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+
+li:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+
+li.selected {
+    background-color: rgb(76, 170, 247);
+}
+
+#url-form {
+    border: 2px dotted black;
+    width: 340px;
+    height: 50px;
+}
+
+
+#url-input {
+    width: 332px;
+    height: 25px;
+}
+
+
+#body {
+    background-color: dimgray;
+}
+
+
+#clear-button {
+    border: none;
+    width: 340px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+}
+#clear-button:hover {
+    background-color: red;
+    color: white;
+}
+
+
+#clear-selected-button {
+    border: none;
+    width: 340px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+}
+#clear-selected-button:hover {
+    background-color: red;
+    color: white;
+}
+
+
+#submit-button {
+    border: none;
+    width: 340px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+#submit-button:hover {
+    background-color: rgb(135, 224, 0);
+    color: white;
+}
+
+#go-button {
+    border: none;
+    width: 231px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+#go-button:hover {
+    background-color: rgb(135, 224, 0);
+    color: white;
+}

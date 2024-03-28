@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Web-Scraper v0.0.1</title>
+    <h1>AmmoSeek Scraper v0.0.1</h1>
+    <h2>link github repo here</h2>
+  </head>
+  <body id="body">
+    <ul id="url-list">
+      <!-- List items will be added here dynamically -->
+    </ul>
+    <form id="url-form">
+      <input type="text" id="url-input" placeholder="Enter URL here">
+      <button type="submit", id="submit-button">Submit</button>
+    </form>
+    <form id="go-selector">
+      <select id="operation">
+        <option value="load">Load Website</option>
+        <option value="scrape">Scrape HTML</option>
+        <option value="save">Save HTML</option>
+      </select>
+      <button type="button", id="go-button">Go!</button>
+    </form>
+    <form id="clear-selected">
+      <button type="button", id="clear-selected-button">Clear Selected URL</button> 
+    </form>  
+    <form id="clear">
+      <button type="button", id="clear-button">Clear All URLs</button> 
+    </form>    
+  </body>
+  <script src="./js/index.js"></script>
+</html>
