@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="controller.css">
     <meta charset="UTF-8" />
     <meta
       http-equiv="Content-Security-Policy"
@@ -12,7 +12,7 @@
       content="default-src 'self'; script-src 'self'"
     />
     <title>Web-Scraper v0.0.1</title>
-    <h1 id="header1">Web Scraper v0.0.1</h1>
+    <h1 id="header1">Web-Scraper v0.0.2</h1>
     <a href="https://github.com/itssBaljeet/AmmoSeekScraper" id="gitlink">Github Repo</a>
   </head>
   <body id="body">
@@ -36,7 +36,14 @@
     </form>  
     <form id="clear">
       <button type="button", id="clear-button">Clear All URLs</button> 
-    </form>    
+    </form>
+    <ul id="tag-list">
+      <!-- Tags will be added here dynamically-->
+    </ul>
+    <form id="tag-form">
+      <input type="text" id="tag-input" placeholder="Enter HTML tags here">
+      <button type="submit", id="tag-submit-button">Submit</button>
+    </form>
   </body>
-  <script src="./js/index.js"></script>
+  <script src="./js/controller.js"></script>
 </html>

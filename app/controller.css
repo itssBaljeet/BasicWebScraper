@@ -8,6 +8,16 @@
     margin-left: 3px;
 }
 
+#tag-list {
+    border: 2px solid black;
+    background-color: white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    min-height: 100px;
+    min-width: 200px;
+    max-width: 300px;
+    margin-left: 3px;
+}
+
 
 li:hover {
     background-color: gray;
@@ -25,9 +35,20 @@ li.selected {
     margin-left: 0px;
 }
 
+#tag-form {
+    border: thick double forestgreen;
+    width: 340px;
+    height: 50px;
+    margin-left: 0px;
+}
 
 #url-input {
-    width: 332px;
+    width: 333px;
+    height: 25px;
+}
+
+#tag-input {
+    width: 333px;
     height: 25px;
 
 }
@@ -54,6 +75,7 @@ li.selected {
     border: 3mm ridge rgba(41, 233, 23, 0.548);
     background-color: dimgray;
     width: 350px;
+    height: 802px;
 }
 
 
@@ -93,15 +115,32 @@ li.selected {
 
 #submit-button {
     border: none;
-    width: 340px;
+    width: 339px;
     color: black;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 14px;
     cursor: pointer;
+    margin-left: 1px;
 }
 #submit-button:hover {
+    background-color: rgb(135, 224, 0);
+    color: white;
+}
+
+#tag-submit-button {
+    border: none;
+    width: 339px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 1px;
+}
+#tag-submit-button:hover {
     background-color: rgb(135, 224, 0);
     color: white;
 }

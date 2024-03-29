@@ -1,5 +1,7 @@
 // Global Var for Selected URL
 let selectedURL;
+// Global var for Selected Tag
+let selectedTag;
 let urls = JSON.parse(localStorage.getItem('urls'));
 
 function loadUrls(parsedURL) {
@@ -8,7 +10,7 @@ function loadUrls(parsedURL) {
         parsedURL.forEach(url => {
             let newListItem = document.createElement('li');
             newListItem.textContent = url;
-            // Handles event of clicking on url in url-list
+            // Adds event listener to every element that listens for a click
             newListItem.addEventListener('click', function() {
                 // Remove 'selected' class from all list items
                 let listItems = document.querySelectorAll('#url-list li');
@@ -16,7 +18,7 @@ function loadUrls(parsedURL) {
                 // Add 'selected' class to the clicked item
                 this.classList.add('selected');
                 selectedURL = this.textContent;
-                console.log('selectedURL: ', selectedURL)
+                window.myAPI.send('selectedURL', selectedURL)
                 newListItem.classList.add("selected")
             })
             list.appendChild(newListItem)
@@ -47,8 +49,7 @@ const isURL = (testURL) => {
 }
 
 // Takes signal from URL Submit button; Adds url to array and list item if valid URL
-document.getElementById('url-form').addEventListener('submit', function(event) {
-
+document.getElementById('url-form').addEventListener('submit', (event) => {
     event.preventDefault();
     let newUrl = document.getElementById('url-input').value
     urls = JSON.parse(localStorage.getItem('urls'));
@@ -56,21 +57,21 @@ document.getElementById('url-form').addEventListener('submit', function(event) {
     if (urls === null){
         urls = [];
     }
-    // Adds to url-list if url-input !empty
+    // Adds to url-list if url-input  not empty & is verified to be a url
     if (newUrl !== '' && isURL(newUrl)) {
         // Add url-input.value to array
         urls.push(newUrl);
         let list = document.getElementById('url-list')
         let newListItem = document.createElement('li')
         newListItem.textContent = newUrl
-        newListItem.addEventListener('click', function() {
+        newListItem.addEventListener('click', function(event) {
             // Remove 'selected class from all list items
             let listItems = document.querySelectorAll('#url-list li');
             listItems.forEach(item => item.classList.remove('selected'));
             // Add 'selected' class to the clicked item
             this.classList.add('selected');
             selectedURL = this.textContent;
-            console.log('selectedURL: ', selectedURL)
+            window.myAPI.send('selectedURL', selectedURL)
             newListItem.classList.add("selected")
         })
         list.appendChild(newListItem)
@@ -108,7 +109,7 @@ document.getElementById('clear').addEventListener('click', function(event) {
 }) 
 
 // Go! button listener
-document.getElementById('go-selector').addEventListener('click', function(event) {
+document.getElementById('go-button').addEventListener('click', function(event) {
     event.preventDefault();
     
     let selectedOption = document.getElementById('operation').value;
@@ -116,8 +117,24 @@ document.getElementById('go-selector').addEventListener('click', function(event)
     if (selectedOption === 'load') {
         window.myAPI.send('sendURL', selectedURL)
     } else if (selectedOption === 'scrape') {
-        
+        window.myAPI.send('scrape')
     } else if (selectedOption === 'save') {
         
     }
+})
+
+document.getElementById('tag-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let newTag = document.getElementById('tag-input').value
+    let list = document.getElementById('tag-list')
+    let newTListItem = document.createElement('li')
+    newTListItem.textContent = newTag
+    newTListItem.addEventListener('click', function() {
+        let tListItems = document.querySelectorAll('#tag-list li');
+        tListItems.forEach(item => item.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedTag = this.textContent;
+    })
+    list.append(newTListItem)
+    document.getElementById('tag-input').value = ''
 })
