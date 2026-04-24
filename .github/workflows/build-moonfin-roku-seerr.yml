@@ -1,0 +1,52 @@
+name: Build fixed Moonfin Roku ZIP
+
+on:
+  push:
+    branches:
+      - moonfin-roku-seerr-build
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out build workspace
+        uses: actions/checkout@v4
+        with:
+          ref: moonfin-roku-seerr-build
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Clone Moonfin Roku
+        run: git clone https://github.com/Moonfin-Client/Roku.git moonfin-roku-src
+
+      - name: Apply Seerr patch
+        run: |
+          cd moonfin-roku-src
+          git apply ../moonfin-roku-seerr-fix/moonfin-seerr-roku.patch
+
+      - name: Build Roku sideload ZIP
+        run: |
+          cd moonfin-roku-src
+          npm install
+          npm run build
+
+      - name: Copy build artifact into branch
+        run: |
+          mkdir -p moonfin-roku-seerr-fix/dist
+          cp moonfin-roku-src/out/*.zip moonfin-roku-seerr-fix/dist/moonfin-roku-seerr-fixed.zip
+
+      - name: Commit built ZIP
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add moonfin-roku-seerr-fix/dist/moonfin-roku-seerr-fixed.zip
+          git commit -m "Build fixed Moonfin Roku sideload zip" || exit 0
+          git push origin moonfin-roku-seerr-build
