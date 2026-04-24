@@ -25,4 +25,4 @@ npm install
 npm run build
 ```
 
-Workflow trigger: 2026-04-24.
+Workflow trigger: 2026-04-24 after default workflow registration.
