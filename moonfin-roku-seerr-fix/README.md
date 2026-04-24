@@ -24,3 +24,5 @@ git apply ../moonfin-seerr-roku.patch
 npm install
 npm run build
 ```
+
+Workflow trigger: 2026-04-24.
