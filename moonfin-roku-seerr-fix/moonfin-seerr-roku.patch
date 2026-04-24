@@ -1,0 +1,115 @@
+diff --git a/components/JFOverhang.bs b/components/JFOverhang.bs
+index ac6fecb..3a0e8a4 100644
+--- a/components/JFOverhang.bs
++++ b/components/JFOverhang.bs
+@@ -729,8 +729,8 @@ function handleOKKey() as boolean
+         return true
+ 
+     else if item.id = "jellyseerr"
+-        jellyseerrDiscovery = CreateObject("roSGNode", "JellyseerrDiscoveryScreen")
+-        m.global.sceneManager.callFunc("pushScene", jellyseerrDiscovery)
++        jellyseerrHub = CreateObject("roSGNode", "JellyseerrHubScreen")
++        m.global.sceneManager.callFunc("pushScene", jellyseerrHub)
+         return true
+ 
+     else if item.id = "settings"
+diff --git a/components/jellyseerr/JellyseerrDiscoveryScreen.bs b/components/jellyseerr/JellyseerrDiscoveryScreen.bs
+index eda26a4..34bc7c1 100644
+--- a/components/jellyseerr/JellyseerrDiscoveryScreen.bs
++++ b/components/jellyseerr/JellyseerrDiscoveryScreen.bs
+@@ -12,6 +12,10 @@ sub init()
+     m.backdrop = m.top.findNode("backdrop")
+     m.backdropPrev = m.top.findNode("backdropPrev")
+ 
++    m.loadWatchdog = m.top.findNode("loadWatchdog")
++    if isValid(m.loadWatchdog)
++        m.loadWatchdog.observeField("fire", "onLoadWatchdogFired")
++    end if
+     m.backdrop.observeField("loadStatus", "onBackdropLoadStatusChange")
+     m.backdropFadeIn = m.top.findNode("backdropFadeIn")
+     m.backdropPrevFadeOut = m.top.findNode("backdropPrevFadeOut")
+@@ -803,6 +807,10 @@ sub CleanupObservers()
+             end if
+         end for
+     end if
++    if isValid(m.loadWatchdog)
++        m.loadWatchdog.control = "stop"
++        m.loadWatchdog.unobserveField("fire")
++    end if
+ end sub
+ 
+ sub onDiscoveryResponse(event as object)
+@@ -1013,19 +1021,63 @@ sub LoadStaticStudios(row as object)
+     end for
+ end sub
+ 
++sub StartLoadWatchdog()
++    if isValid(m.loadWatchdog)
++        m.loadWatchdog.control = "stop"
++        m.loadWatchdog.control = "start"
++    end if
++end sub
++
++sub StopLoadWatchdog()
++    if isValid(m.loadWatchdog)
++        m.loadWatchdog.control = "stop"
++    end if
++end sub
++
++sub onLoadWatchdogFired()
++    if not isValid(m.rowsLoading) then return
++    if m.rowsLoading.count() = 0 then return
++
++    stuckRows = []
++    for each key in m.rowsLoading
++        stuckRows.push(key)
++    end for
++
++    for each key in stuckRows
++        m.rowsLoading.delete(key)
++        if isValid(m.isLoadingMore)
++            m.isLoadingMore[key] = false
++        end if
++        if isValid(m.apiTasks) and m.apiTasks.doesExist(key)
++            task = m.apiTasks[key]
++            if isValid(task)
++                task.unobserveField("response")
++            end if
++            m.apiTasks.delete(key)
++        end if
++    end for
++
++    HideLoading()
++    ShowError("Seerr timed out while loading discovery data. Open the Seerr hub and verify the Moonfin plugin session, then check Jellyfin logs for /Moonfin/Jellyseerr/Api errors.")
++end sub
++
+ sub ShowLoading()
+     m.loadingLabel.visible = true
+     m.errorLabel.visible = false
++    StartLoadWatchdog()
+ end sub
+ 
+ sub HideLoading()
++    StopLoadWatchdog()
+     m.loadingLabel.visible = false
+ end sub
+ 
+ sub ShowError(message as string)
++    StopLoadWatchdog()
+     m.errorLabel.text = message
+     m.errorLabel.visible = true
+     m.loadingLabel.visible = false
+ end sub
+diff --git a/components/jellyseerr/JellyseerrDiscoveryScreen.xml b/components/jellyseerr/JellyseerrDiscoveryScreen.xml
+index bd8dbc6..871915c 100644
+--- a/components/jellyseerr/JellyseerrDiscoveryScreen.xml
++++ b/components/jellyseerr/JellyseerrDiscoveryScreen.xml
+@@ -66,6 +66,8 @@
+             width="1800"
+             wrap="true"
+             visible="false" />
++
++        <Timer id="loadWatchdog" duration="35" repeat="false" />
+         <Animation id="backdropFadeIn" duration="0.5" repeat="false" easeFunction="inOutQuad">
+             <FloatFieldInterpolator id="backdropFadeInInterp" key="[0.0, 1.0]" keyValue="[0.0, 1.0]" fieldToInterp="backdrop.opacity" />
+         </Animation>
